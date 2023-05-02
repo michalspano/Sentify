@@ -1,0 +1,49 @@
+h1 {
+    font-family: monospace;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: monospace;
+}
+
+.track h2 {
+    margin-top: 10px;
+    background-color: black;
+    color: white;
+}
+
+.track {
+    display: inline-block;
+    width: 300px;
+    height: 200px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+    margin-top: 50px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+a {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background-color: #1DB954;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+a:hover {
+    background-color: #22c95c;
+}
