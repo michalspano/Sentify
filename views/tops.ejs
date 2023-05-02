@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top Tracks</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css"
+</head>
+<body>
+    <h1>User Top Tracks</h1>
+    <ul class="row">
+        <% tracks.forEach(function(track) { %>
+            <li class="track">
+                <h2><%= track.name %></h2>
+                <p><strong>Id:</strong><%= track.id %></p>
+                <p><strong>Key:</strong><%= track.key %></p>
+                <p><strong>Energy:</strong><%= track.energy %></p>
+                <p><strong>Genres:</strong><%= track.genres.join(', ') %></p>
+            </li>
+        <% }); %>
+    </ul>
+    <a href="/home">Go back to home</a>
+</body>
+</html>

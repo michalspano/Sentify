@@ -63,3 +63,55 @@ export const formatAccessPoint = (): string => {
         'localhost%3A8080%2Faccount&' +
         'scope=user-top-read'
 }
+
+/**
+ * 
+ * @param accessToken the response code from the login process in the "/account" end point
+ * @returns the top 10 tracks of the user with relevant audio data
+ * 
+ * The getTopTracks function requests the top 10 tracks from the user's Spotify account.
+ * It then gathers audio data from the tracks such as:
+ *  name,
+ *  id,
+ *  key,
+ *  energy,
+ *  genres
+ */
+export const getTopTracks = async (accessToken: any) => {
+    try {
+        const response = await axios.get('https://api.spotify.com/v1/me/top/tracks', {
+            params: {
+                limit: 10,
+                time_range: 'medium_term',
+            },
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
+
+        const tracks = await Promise.all(response.data.items.map(async (item: any) => {
+            const audio = await axios.get(`https://api.spotify.com/v1/audio-features/${item.id}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            const artistResponse = await axios.get(`https://api.spotify.com/v1/artists/${item.artists[0].id}`, {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+
+            return {
+                name: item.name,
+                id: item.id,
+                key: audio.data.key,
+                energy: audio.data.energy,
+                genres: artistResponse.data.genres,
+            };
+        }));
+        return tracks;
+    } catch (error) {
+        console.error(error);
+    }
+}
